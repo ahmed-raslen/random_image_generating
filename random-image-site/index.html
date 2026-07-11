@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frame — Random Image Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">FR</span>
+    <span class="brand-name">Frame</span>
+  </div>
+  <div class="topbar-sub">a window into random imagery</div>
+</header>
+
+<main class="stage">
+
+  <section class="frame-wrap">
+    <div class="frame-index" id="frameIndex">No. 000</div>
+    <div class="photo-card" id="photoCard">
+      <div class="photo-inner">
+        <img id="photoImage" alt="Randomly generated image" crossorigin="anonymous">
+        <div class="photo-loading" id="photoLoading">
+          <div class="loading-bar"></div>
+          <span>developing image</span>
+        </div>
+      </div>
+      <div class="photo-caption">
+        <span class="caption-label">caption</span>
+        <span class="caption-text" id="captionText">loading frame</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-primary" id="regenerateBtn">
+        <span class="btn-icon">↻</span>
+        <span>New image</span>
+      </button>
+      <button class="btn btn-secondary" id="describeBtn">
+        <span class="btn-icon">◎</span>
+        <span>Describe</span>
+      </button>
+      <button class="btn btn-secondary" id="infoBtn">
+        <span class="btn-icon">i</span>
+        <span>Details</span>
+      </button>
+
+    </div>
+
+    <div class="share-row">
+      <button class="share-btn" id="copyLinkBtn" aria-label="Copy image link">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-2.83 2.83a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg>
+        <span>Copy link</span>
+      </button>
+          <button class="btn btn-secondary" id="downloadBtn">
+        <span class="btn-icon">↓</span>
+        <span>Download</span>
+      </button>
+    </div>
+
+    <div class="status-line" id="statusLine"></div>
+
+  </section>
+
+</main>
+
+<footer class="footpage">
+  <span>images sourced from picsum.photos</span>
+  <span>local on-device recognition via tensorflow.js</span>
+</footer>
+
+<div class="modal-backdrop" id="infoModal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">Frame details</span>
+      <button class="modal-close" id="closeInfoModal">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-row">
+        <span class="detail-key">Photographer</span>
+        <span class="detail-value" id="detailAuthor">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Image ID</span>
+        <span class="detail-value" id="detailId">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Dimensions</span>
+        <span class="detail-value" id="detailDimensions">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Source page</span>
+        <span class="detail-value" id="detailSource">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Hosted on</span>
+        <span class="detail-value">picsum.photos content delivery network</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Location taken</span>
+        <span class="detail-value">not provided by source</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Capture date</span>
+        <span class="detail-value">not provided by source</span>
+      </div>
+      <div class="modal-note">
+        Location and capture date are not exposed by the image source and are shown as unavailable rather than guessed.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="describeModal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">Automatic description</span>
+      <button class="modal-close" id="closeDescribeModal">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="describe-state" id="describeState">
+        <div class="loading-bar"></div>
+        <span>analyzing pixels on device</span>
+      </div>
+      <div class="describe-result" id="describeResult" style="display:none">
+        <div class="describe-main" id="describeMain"></div>
+        <div class="describe-list" id="describeList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
